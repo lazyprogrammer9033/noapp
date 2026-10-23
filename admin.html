@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>RSVP Admin</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header>
+    <h1>🪔 Diwali Lunch · RSVPs</h1>
+    <button id="logout" class="ghost" hidden>Sign out</button>
+  </header>
+
+  <p class="banner" id="demo-banner" hidden>
+    Demo mode: Supabase isn't set up yet in <code>config.js</code>, so you're seeing RSVPs saved in <em>this browser only</em>.
+    Follow the README to connect the real database.
+  </p>
+
+  <section id="login" class="panel" hidden>
+    <h2>Admin sign in</h2>
+    <form id="login-form">
+      <label>Email <input name="email" type="email" required autocomplete="username"></label>
+      <label>Password <input name="password" type="password" required autocomplete="current-password"></label>
+      <button type="submit">Sign in</button>
+      <p class="error" id="login-error" role="alert"></p>
+    </form>
+  </section>
+
+  <section id="dashboard" hidden>
+    <div class="stats">
+      <div class="stat"><strong id="stat-rsvps">0</strong><span>RSVPs</span></div>
+      <div class="stat"><strong id="stat-guests">0</strong><span>Total guests</span></div>
+      <div class="stat wide"><strong id="stat-diet">–</strong><span>Food preferences</span></div>
+    </div>
+
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search name or email…">
+      <button id="refresh" class="ghost">↻ Refresh</button>
+      <button id="export">⬇ Export CSV</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>When</th><th>Name</th><th>Email</th><th>Guests</th><th>Food</th><th>Wish</th><th></th></tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p class="empty" id="empty" hidden>No RSVPs yet. Share the invite! 🎉</p>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="config.js"></script>
+  <script src="db.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
