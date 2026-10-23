@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diwali Celebration Lunch</title>
+  <meta name="description" content="You're invited to a Diwali Celebration Lunch!">
+  <meta property="og:title" content="🪔 You're invited: Diwali Celebration Lunch">
+  <meta property="og:description" content="Join us for a festive home-cooked lunch. Tap to RSVP!">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪔</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Background layers -->
+  <div class="sky" aria-hidden="true"></div>
+  <div id="petals" aria-hidden="true"></div>
+  <canvas id="sparkle-trail" aria-hidden="true"></canvas>
+
+  <!-- Hanging lanterns -->
+  <div class="lanterns" aria-hidden="true">
+    <span class="lantern l1"></span>
+    <span class="lantern l2"></span>
+    <span class="lantern l3"></span>
+    <span class="lantern l4"></span>
+  </div>
+
+  <button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="false" title="Festive sounds on/off">🔇</button>
+
+  <main class="card" id="invite">
+    <div class="rangoli" aria-hidden="true"></div>
+    <p class="eyebrow">Shubh Deepavali ✨</p>
+    <h1 id="event-title">Diwali Celebration Lunch</h1>
+    <p class="host">hosted by <span id="host-name"></span></p>
+
+    <div class="details">
+      <div class="detail"><span class="icon">📅</span><span id="event-date"></span></div>
+      <div class="detail"><span class="icon">⏰</span><span id="event-time"></span></div>
+      <div class="detail"><span class="icon">🏡</span><a id="event-address" target="_blank" rel="noopener"></a></div>
+      <div class="detail"><span class="icon">👗</span><span id="dress-code"></span></div>
+    </div>
+
+    <p class="note" id="event-note"></p>
+
+    <div class="countdown" id="countdown" aria-live="polite">
+      <div><strong data-unit="days">0</strong><small>days</small></div>
+      <div><strong data-unit="hours">0</strong><small>hours</small></div>
+      <div><strong data-unit="minutes">0</strong><small>mins</small></div>
+      <div><strong data-unit="seconds">0</strong><small>secs</small></div>
+    </div>
+
+    <p class="question">Will you light up our home with your presence? 🪔</p>
+
+    <div class="choices" id="choices">
+      <button id="yes-btn" class="btn btn-yes" type="button">Yes, I'll be there! 🎉</button>
+      <button id="no-btn" class="btn btn-no" type="button">No</button>
+    </div>
+    <p class="hint" id="hint" aria-live="polite"></p>
+
+    <div class="calendar-row">
+      <button id="calendar-btn" class="link-btn" type="button">📆 Add to calendar</button>
+      <button id="share-btn" class="link-btn" type="button">💌 Share invite</button>
+    </div>
+  </main>
+
+  <!-- RSVP form -->
+  <div class="modal-backdrop" id="rsvp-modal" role="dialog" aria-modal="true" aria-labelledby="rsvp-title" hidden>
+    <form class="modal" id="rsvp-form" novalidate>
+      <button type="button" class="close" id="close-modal" aria-label="Close">×</button>
+      <div class="diya-big" aria-hidden="true">🪔</div>
+      <h2 id="rsvp-title">Yay! You made our Diwali brighter!</h2>
+      <p class="sub">Just a few details so we cook enough ladoos 😄</p>
+
+      <label>Your name
+        <input name="name" required maxlength="100" autocomplete="name" placeholder="e.g. Priya Sharma">
+      </label>
+      <label>Email
+        <input name="email" type="email" required maxlength="200" autocomplete="email" placeholder="you@example.com">
+      </label>
+      <div class="row">
+        <label>Guests (incl. you)
+          <input name="guests" type="number" min="1" max="20" value="1" required>
+        </label>
+        <label>Food preference
+          <select name="diet">
+            <option>Vegetarian</option>
+            <option>Vegan</option>
+            <option>Jain</option>
+            <option>No preference</option>
+          </select>
+        </label>
+      </div>
+      <label>A Diwali wish for us (optional)
+        <textarea name="message" maxlength="500" rows="2" placeholder="May your home be filled with light..."></textarea>
+      </label>
+      <p class="error" id="form-error" role="alert"></p>
+      <button class="btn btn-yes submit" type="submit" id="submit-btn">Send my RSVP ✨</button>
+    </form>
+
+    <div class="modal thanks" id="thanks" hidden>
+      <div class="diya-big" aria-hidden="true">🎆</div>
+      <h2>Thank you, <span id="thanks-name"></span>!</h2>
+      <p>Your RSVP is in. We can't wait to celebrate with you.</p>
+      <p class="sub">A little Diwali blessing for you:</p>
+      <blockquote id="blessing"></blockquote>
+      <button type="button" class="btn btn-yes" id="more-fireworks">More fireworks! 🎇</button>
+    </div>
+  </div>
+
+  <!-- Fireworks sit above everything, including the pop-up -->
+  <canvas id="fireworks" aria-hidden="true"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="config.js"></script>
+  <script src="db.js"></script>
+  <script src="fireworks.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
